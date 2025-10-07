@@ -70,15 +70,17 @@ io.on("connection", (socket)=>{
     }) 
 })
 
-const port =process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 
-const __dirname = path.resolve();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
 
-server.listen(port, ()=>{
+server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
